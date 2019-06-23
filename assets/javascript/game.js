@@ -32,6 +32,11 @@ var getRandom = function(min, max) {
     return Math.floor(Math.random() * (max - min +1)) + min;
 };
 
+// audio workaround
+var yoiClick = document.getElementById("yoiClick");
+var winner = document.getElementById("winner");
+var loser = document.getElementById("loser");
+
 var startGame = function() {
     currentScore = 0;
     targetScore = getRandom(19, 120);
@@ -50,16 +55,16 @@ var startGame = function() {
 
 var checkWin = function() {
     if (currentScore > targetScore) {
+        loser.play();
         alert("You lose!");
-        $("#loser").play();
         losses++;
         $("#loss-count").text(losses);
         startGame()
     }
 
     else if (currentScore === targetScore) {
+        winner.play();
         alert("You win!");
-        $("#winner").play();
         wins++
         $("#win-count").text(wins);
         startGame()
@@ -71,11 +76,11 @@ var addValues = function(clickedStiller) {
     $("#your-score").text(currentScore);
     checkWin();
     // Testing:
-    console.log("Your Score: " + currentScore);
+    // console.log("Your Score: " + currentScore);
 };
+startGame();
 
-// audio workaround
-var yoiClick = $("#yoiClick");
+
 
 $("#meanJoe").click(function() {
     addValues(stiller.meanJoe);
