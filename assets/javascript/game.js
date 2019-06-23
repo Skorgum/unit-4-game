@@ -43,8 +43,53 @@ var startGame = function() {
     $("#your-score").text(currentScore);
     $("#target-score").text(targetScore);
 
-    // To be deleted or commented out after testing:
-    console.log("Target Score: " + targetScore);
-    console.log("Mean Joe: " + stiller.meanJoe.value + " | Franco: " + stiller.Franco.value + " | Troy: " + stiller.Troy.value + " | Hines: " + stiller.Hines.value);
+    // Testing:
+    // console.log("Target Score: " + targetScore);
+    // console.log("Mean Joe: " + stiller.meanJoe.value + " | Franco: " + stiller.Franco.value + " | Troy: " + stiller.Troy.value + " | Hines: " + stiller.Hines.value);
 };
-startGame()
+
+var checkWin = function() {
+    if (currentScore > targetScore) {
+        alert("You lose!");
+        $("#loser").play();
+        losses++;
+        $("#loss-count").text(losses);
+        startGame()
+    }
+
+    else if (currentScore === targetScore) {
+        alert("You win!");
+        $("#winner").play();
+        wins++
+        $("#win-count").text(wins);
+        startGame()
+    }
+};
+
+var addValues = function(clickedStiller) {
+    currentScore += clickedStiller.value;
+    $("#your-score").text(currentScore);
+    checkWin();
+    // Testing:
+    console.log("Your Score: " + currentScore);
+};
+
+// audio workaround
+var yoiClick = $("#yoiClick");
+
+$("#meanJoe").click(function() {
+    addValues(stiller.meanJoe);
+    yoiClick.play();
+});
+$("#Franco").click(function() {
+    addValues(stiller.Franco);
+    yoiClick.play();
+});
+$("#Troy").click(function() {
+    addValues(stiller.Troy);
+    yoiClick.play();
+});
+$("#Hines").click(function() {
+    addValues(stiller.Hines);
+    yoiClick.play();
+})
